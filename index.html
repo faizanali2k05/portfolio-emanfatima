@@ -1187,36 +1187,59 @@ function type() {
 setTimeout(type, 2000);
 
 // ===== CONTACT FORM — port 8080 =====
-document.getElementById("contactForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
-  const status = document.getElementById("form-status");
-  const submitBtn = this.querySelector("button[type='submit']");
-  const data = Object.fromEntries(new FormData(this));
+<form
+    action="https://formspree.io/f/mkolbywn"
+    method="POST"
+    class="contact-form-box"
+>
 
-  status.textContent = "Sending your message...";
-  status.style.color = "#10b981";
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+    <div class="form-row">
+        <div class="form-group">
+            <label>Your Name</label>
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                required
+            />
+        </div>
 
-  try {
-    const response = await fetch("http://127.0.0.1:8080/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-    const result = await response.json();
-    status.textContent = result.message;
-    status.style.color = result.success ? "#10b981" : "#ef4444";
-    if (result.success) this.reset();
-  } catch (error) {
-    status.textContent = "Cannot connect to server. Please email Eman directly at emanfatima60860@gmail.com";
-    status.style.color = "#ef4444";
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
-  }
-});
+        <div class="form-group">
+            <label>Email Address</label>
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            />
+        </div>
+    </div>
 
+    <div class="form-group">
+        <label>Subject</label>
+        <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            required
+        />
+    </div>
+
+    <div class="form-group">
+        <label>Message</label>
+        <textarea
+            name="message"
+            placeholder="Write your message..."
+            required
+        ></textarea>
+    </div>
+
+    <button type="submit" class="btn-grad">
+        <i class="fa-solid fa-paper-plane"></i>
+        Send Message
+    </button>
+
+</form>
 // ===== CHATBOT =====
 let chatOpen = false;
 function toggleChat() {
